@@ -8,12 +8,17 @@ NS_CC_BEGIN
 class CC_DLL CCBinary
 {
 public:
-	static CCBinary* create(const char * binary);
+	static CCBinary* createRead(std::string stream);
+	static CCBinary* createWrite();
 
 	CCBinary();
 	~CCBinary();
 
-	bool init(const char* stream);
+	bool initRead(std::string stream);
+	bool initWrite();
+
+	const void setEndian(const bool isBigEndian);
+	const bool isBigEndian() const;
 
 	unsigned char readByte();
 	bool readBool();
@@ -23,12 +28,24 @@ public:
 	long long readLong();
 	float readFloat();
 	double readDouble();
-	const char * readString();
+	char* readString();
+
+	void writeByte(unsigned char b);
+	void writeBool(bool b);
+	void writeChar(char c);
+	void writeShort(short s);
+	void writeInt(int i);
+	void writeLong(long long l);
+	void writeFloat(float f);
+	void writeDouble(double d);
+	void writeString(std::string s);
 
 private:
-	const char * _stream;
+	std::string _receiveStream;
+	std::string _sendStream;
 	int _pos;
 	int _size;
+	bool _isBigEndian = true;
 };
 
 NS_CC_END

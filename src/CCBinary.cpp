@@ -2,10 +2,17 @@
 
 USING_NS_CC;
 
-CCBinary* CCBinary::create(const char* stream)
+CCBinary* CCBinary::createRead(std::string stream)
 {
 	CCBinary* binary = new (std::nothrow) CCBinary;
-	binary->init(stream);
+	binary->initRead(stream);
+	return binary;
+}
+
+CCBinary* CCBinary::createWrite()
+{
+	CCBinary* binary = new (std::nothrow) CCBinary;
+	binary->initWrite();
 	return binary;
 }
 
@@ -16,15 +23,34 @@ CCBinary::CCBinary()
 
 CCBinary::~CCBinary()
 {
-	CC_SAFE_DELETE(_stream);
+	_receiveStream.clear();
+	_sendStream.clear();
 }
 
-bool CCBinary::init(const char* stream)
+bool CCBinary::initRead(std::string stream)
 {
-	_stream = stream;
+	_receiveStream = stream;
 	_pos = 0;
-	_size = strlen(stream);
+	_size = _receiveStream.size();
 	return true;
+}
+
+bool CCBinary::initWrite()
+{
+	_receiveStream.clear();
+	_pos = 0;
+	_size = 0;
+	return true;
+}
+
+const void CCBinary::setEndian(const bool isBigEndian)
+{
+	_isBigEndian = isBigEndian;
+}
+
+const bool CCBinary::isBigEndian() const
+{
+	return _isBigEndian;
 }
 
 unsigned char CCBinary::readByte()
@@ -33,7 +59,7 @@ unsigned char CCBinary::readByte()
 	size_t len = sizeof(b);
 	if (len + _pos > _size)
 		return NULL;
-	memcpy(&b, _stream, len);
+	memcpy(&b, _receiveStream.substr(_pos, _pos + len).c_str(), len);
 	_pos += len;
 	return b;
 }
@@ -44,7 +70,7 @@ bool CCBinary::readBool()
 	size_t len = sizeof(b);
 	if (len + _pos > _size)
 		return NULL;
-	memcpy(&b, _stream, len);
+	memcpy(&b, _receiveStream.substr(_pos, _pos + len).c_str(), len);
 	_pos += len;
 	return b;
 }
@@ -55,7 +81,7 @@ char CCBinary::readChar()
 	size_t len = sizeof(c);
 	if (len + _pos > _size)
 		return NULL;
-	memcpy(&c, _stream, len);
+	memcpy(&c, _receiveStream.substr(_pos, _pos + len).c_str(), len);
 	_pos += len;
 	return c;
 }
@@ -66,7 +92,7 @@ short CCBinary::readShort()
 	size_t len = sizeof(s);
 	if (len + _pos > _size)
 		return NULL;
-	memcpy(&s, _stream, len);
+	memcpy(&s, _receiveStream.substr(_pos, _pos + len).c_str(), len);
 	_pos += len;
 	return s;
 }
@@ -77,7 +103,7 @@ int CCBinary::readInt()
 	size_t len = sizeof(i);
 	if (len + _pos > _size)
 		return NULL;
-	memcpy(&i, _stream, len);
+	memcpy(&i, _receiveStream.substr(_pos, _pos + len).c_str(), len);
 	_pos += len;
 	return i;
 }
@@ -88,7 +114,7 @@ long long CCBinary::readLong()
 	size_t len = sizeof(l);
 	if (len + _pos > _size)
 		return NULL;
-	memcpy(&l, _stream, len);
+	memcpy(&l, _receiveStream.substr(_pos, _pos + len).c_str(), len);
 	_pos += len;
 	return l;
 }
@@ -99,7 +125,7 @@ float CCBinary::readFloat()
 	size_t len = sizeof(f);
 	if (len + _pos > _size)
 		return NULL;
-	memcpy(&f, _stream, len);
+	memcpy(&f, _receiveStream.substr(_pos, _pos + len).c_str(), len);
 	_pos += len;
 	return f;
 }
@@ -110,19 +136,80 @@ double CCBinary::readDouble()
 	size_t len = sizeof(d);
 	if (len + _pos > _size)
 		return NULL;
-	memcpy(&d, _stream, len);
+	memcpy(&d, _receiveStream.substr(_pos, _pos + len).c_str(), len);
 	_pos += len;
 	return d;
 }
 
-const char * CCBinary::readString()
+char* CCBinary::readString()
 {
-	size_t len = this->readShort();
-	const char* c;
+	size_t len = this->readChar();
 	if (len + _pos > _size)
 		return NULL;
-	memcpy(&c, _stream, len);
+	char* c = new char[len];
+	memcpy(c, _receiveStream.substr(_pos, _pos + len).c_str(), len);
+	c[len] = '\0';
 	_pos += len;
 	return c;
 }
+
+void CCBinary::writeByte(unsigned char b)
+{
+
+}
+
+void CCBinary::writeBool(bool b)
+{
+
+}
+
+void CCBinary::writeChar(char c)
+{
+
+}
+
+void CCBinary::writeShort(short s)
+{
+
+}
+
+void CCBinary::writeInt(int i)
+{
+
+}
+
+void CCBinary::writeLong(long long l)
+{
+
+}
+
+void CCBinary::writeFloat(float f)
+{
+
+}
+
+void CCBinary::writeDouble(double d)
+{
+
+}
+
+void CCBinary::writeString(std::string s)
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

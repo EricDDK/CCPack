@@ -25,4 +25,17 @@ int register_all_ccbinary(lua_State* tolua_S);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 #endif // __ccbinary_h__
