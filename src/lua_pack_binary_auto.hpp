@@ -1,6 +1,6 @@
 #include "base/ccConfig.h"
-#ifndef __ccbinary_h__
-#define __ccbinary_h__
+#ifndef __Binary_h__
+#define __Binary_h__
 
 #ifdef __cplusplus
 extern "C" {
@@ -10,7 +10,7 @@ extern "C" {
 }
 #endif
 
-int register_all_ccbinary(lua_State* tolua_S);
+int register_all_Binary(lua_State* tolua_S);
 
 
 
@@ -38,4 +38,6 @@ int register_all_ccbinary(lua_State* tolua_S);
 
 
 
-#endif // __ccbinary_h__
+
+
+#endif // __Binary_h__
