@@ -5,20 +5,22 @@
 
 NS_CC_BEGIN
 
-class CC_DLL CCBinary
+class Binary : public cocos2d::Ref
 {
 public:
-	static CCBinary* createRead(std::string stream);
-	static CCBinary* createWrite();
+	static Binary* createRead(std::string stream);
+	static Binary* createWrite();
 
-	CCBinary();
-	~CCBinary();
+	Binary();
+	virtual ~Binary();
 
 	bool initRead(std::string stream);
 	bool initWrite();
 
 	const void setEndian(const bool isBigEndian);
 	const bool isBigEndian() const;
+
+	const std::string getStream() const { return _stream; }
 
 	unsigned char readByte();
 	bool readBool();
@@ -28,7 +30,7 @@ public:
 	long long readLong();
 	float readFloat();
 	double readDouble();
-	char* readString();
+	std::string readString();
 
 	void writeByte(unsigned char b);
 	void writeBool(bool b);
@@ -39,10 +41,11 @@ public:
 	void writeFloat(float f);
 	void writeDouble(double d);
 	void writeString(std::string s);
+	void finish();
 
 private:
-	std::string _receiveStream;
-	std::string _sendStream;
+	std::string _stream;
+	short _head;
 	int _pos;
 	int _size;
 	bool _isBigEndian = true;
