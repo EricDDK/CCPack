@@ -1,5 +1,10 @@
 #include "Binary.h"
 
+//custome define
+//Header offset, currently protocol number 4 bytes
+//包头偏移量，当前为协议号4字节
+#define HEAD_OFFSET 4; 
+
 USING_NS_CC;
 
 Binary* Binary::createRead(std::string stream)
@@ -44,11 +49,11 @@ bool Binary::initRead(std::string stream)
 
 bool Binary::initWrite()
 {
-	_head = 0;
 	_pos = 0;
 	_size = 0;
-	writeShort(sizeof(short));
 	_stream.clear();
+	writeInt(sizeof(int));
+	_head = 0; //data length not contained in _head value
 	return true;
 }
 
@@ -162,22 +167,28 @@ std::string Binary::readString()
 
 void Binary::writeByte(unsigned char b)
 {
-	size_t len = sizeof(b);
-	memcpy(&_stream + _pos, &b, len);
+	const size_t len = sizeof(b);
+	char s[len];
+	memcpy(s, &b, len);
+	_stream += std::string(s, len);
 	_head += len;
 }
 
 void Binary::writeBool(bool b)
 {
-	size_t len = sizeof(b);
-	memcpy(&_stream + _pos, &b, len);
+	const size_t len = sizeof(b);
+	char s[len];
+	memcpy(s, &b, len);
+	_stream += std::string(s, len);
 	_head += len;
 }
 
 void Binary::writeChar(char c)
 {
-	size_t len = sizeof(c);
-	memcpy(&_stream + _pos, &c, len);
+	const size_t len = sizeof(c);
+	char s[len];
+	memcpy(s, &c, len);
+	_stream += std::string(s, len);
 	_head += len;
 }
 
@@ -186,7 +197,7 @@ void Binary::writeShort(short sh)
 	const size_t len = sizeof(sh);
 	char s[len];
 	memcpy(s, &sh, len);
-	_stream += s;
+	_stream += std::string(s, len);
 	_head += len;
 }
 
@@ -195,23 +206,35 @@ void Binary::writeInt(int i)
 	const size_t len = sizeof(i);
 	char s[len];
 	memcpy(s, &i, len);
-	_stream += s;
+	_stream += std::string(s, len);
 	_head += len;
 }
 
 void Binary::writeLong(long long l)
 {
-
+	const size_t len = sizeof(l);
+	char s[len];
+	memcpy(s, &l, len);
+	_stream += std::string(s, len);
+	_head += len;
 }
 
 void Binary::writeFloat(float f)
 {
-
+	const size_t len = sizeof(f);
+	char s[len];
+	memcpy(s, &f, len);
+	_stream += std::string(s, len);
+	_head += len;
 }
 
 void Binary::writeDouble(double d)
 {
-
+	const size_t len = sizeof(d);
+	char s[len];
+	memcpy(s, &d, len);
+	_stream += std::string(s, len);
+	_head += len;
 }
 
 void Binary::writeString(std::string s)
@@ -224,6 +247,7 @@ void Binary::writeString(std::string s)
 void Binary::finish()
 {
 	char dataLen[sizeof(short)];
+	_head -= HEAD_OFFSET;
 	memcpy(dataLen, &_head, sizeof(short));
 	_stream[0] = dataLen[0];
 	_stream[1] = dataLen[1];

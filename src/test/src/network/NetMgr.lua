@@ -120,17 +120,14 @@ function NetMgr:disposeReceiveTask()
         -- 获取到整个包的内容，与头部拼接
         buffer = buffer .. self._socket:receive(len + 2)
 
-
-        local binary = cc.CCBinary:create(buffer)
+        local binary = cc.Binary:createRead(buffer)
         local head = binary:readInt()
         local protocolID = binary:readInt()
         if protocolID == -847330270 then
-            local key = binary:readString()
+            local cryKey = binary:readString()
             local version = binary:readString()
             local rs = 0
-
-            
-
+            self:send(protocolID, {key = cryKey})
         end
 
         -- -- 获取 protocolID ，第三个字节开始到第六个字节我们定义的是协议号，这些都可以随意修改
@@ -180,18 +177,35 @@ end
 ]]
 function NetMgr:send(protocolID, event)
     local data
-    if protocolID == 1111111 then
-
-        -- event 是要发送的lua对象
-        -- local event = {
-        --     score = 1000,
-        -- }
-
-        -- 4 + 4 中， 第一个4是协议号，第二个4是event.score
-        local len = 4 + 4
-        -- data 是包的二进制
-        data = string.pack("<Iii", len, protocolID, event.score)
+    if protocolID == -847330270 then
+        local binary = cc.Binary:createWrite()
+        binary:writeInt(1517440670)
+        binary:writeString("weijiali")
+        binary:writeString("111111")
+        binary:writeString("2.5.0.0")
+        binary:writeString(event.key)
+        binary:finish()
+        local data = binary:getStream()
         table.insert(self._sendTaskQueue, 1, data)
+
+        -- local buffer = cc.Binary:createRead(data)
+        -- local len = buffer:readShort()
+        -- local head = buffer:readInt()
+        -- local name = buffer:readString()
+        -- local pwd = buffer:readString()
+        -- local version = buffer:readString()
+        -- local key = buffer:readString()
+        -- local a = 1
+
+        -- -- event 是要发送的lua对象
+        -- -- local event = {
+        -- --     score = 1000,
+        -- -- }
+        -- -- 4 + 4 中， 第一个4是协议号，第二个4是event.score
+        -- local len = 4 + 4
+        -- -- data 是包的二进制
+        -- data = string.pack("<Iii", len, protocolID, event.score)
+        -- table.insert(self._sendTaskQueue, 1, data)
     elseif protocolID == 22222222 then
 
         -- event 是要发送的lua对象
