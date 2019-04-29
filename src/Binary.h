@@ -31,6 +31,9 @@ public:
 	float readFloat();
 	double readDouble();
 	std::string readString();
+	std::string readString8();
+	std::string readString16();
+	std::string readString32();
 
 	void writeByte(unsigned char b);
 	void writeBool(bool b);
@@ -41,6 +44,10 @@ public:
 	void writeFloat(float f);
 	void writeDouble(double d);
 	void writeString(std::string s);
+	void writeString8(std::string s);
+	void writeString16(std::string s);
+	void writeString32(std::string s);
+
 	void finish();
 
 private:

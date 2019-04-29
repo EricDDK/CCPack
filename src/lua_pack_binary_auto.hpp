@@ -40,4 +40,10 @@ int register_all_Binary(lua_State* tolua_S);
 
 
 
+
+
+
+
+
+
 #endif // __Binary_h__

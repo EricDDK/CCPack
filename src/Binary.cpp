@@ -165,6 +165,36 @@ std::string Binary::readString()
 	return s;
 }
 
+std::string Binary::readString8()
+{
+	const size_t len = this->readChar();
+	if (len + _pos > _size)
+		return NULL;
+	std::string s = _stream.substr(_pos, len).c_str();
+	_pos += len;
+	return s;
+}
+
+std::string Binary::readString16()
+{
+	const size_t len = this->readShort();
+	if (len + _pos > _size)
+		return NULL;
+	std::string s = _stream.substr(_pos, len).c_str();
+	_pos += len;
+	return s;
+}
+
+std::string Binary::readString32()
+{
+	const size_t len = this->readInt();
+	if (len + _pos > _size)
+		return NULL;
+	std::string s = _stream.substr(_pos, len).c_str();
+	_pos += len;
+	return s;
+}
+
 void Binary::writeByte(unsigned char b)
 {
 	const size_t len = sizeof(b);
@@ -242,6 +272,27 @@ void Binary::writeString(std::string s)
 	writeChar(s.size());
 	_stream += s;
 	_head += (s.size() + 1);
+}
+
+void Binary::writeString8(std::string s)
+{
+	writeChar(s.size());
+	_stream += s;
+	_head += (s.size() + sizeof(char));
+}
+
+void Binary::writeString16(std::string s)
+{
+	writeShort(s.size());
+	_stream += s;
+	_head += (s.size() + sizeof(short));
+}
+
+void Binary::writeString32(std::string s)
+{
+	writeInt(s.size());
+	_stream += s;
+	_head += (s.size() + sizeof(int));
 }
 
 void Binary::finish()

@@ -1,4 +1,4 @@
-#include "lua_pack_binary_auto.hpp"
+#include "scripting/lua-bindings/auto/lua_pack_binary_auto.hpp"
 #include "Binary.h"
 #include "scripting/lua-bindings/manual/tolua_fix.h"
 #include "scripting/lua-bindings/manual/LuaBasicConversions.h"
@@ -338,6 +338,56 @@ int lua_Binary_Binary_initWrite(lua_State* tolua_S)
 
     return 0;
 }
+int lua_Binary_Binary_writeString8(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocos2d::Binary* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"cc.Binary",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocos2d::Binary*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_Binary_Binary_writeString8'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "cc.Binary:writeString8");
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_Binary_Binary_writeString8'", nullptr);
+            return 0;
+        }
+        cobj->writeString8(arg0);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Binary:writeString8",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_Binary_Binary_writeString8'.",&tolua_err);
+#endif
+
+    return 0;
+}
 int lua_Binary_Binary_writeString(lua_State* tolua_S)
 {
     int argc = 0;
@@ -384,6 +434,56 @@ int lua_Binary_Binary_writeString(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_Binary_Binary_writeString'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_Binary_Binary_writeString16(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocos2d::Binary* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"cc.Binary",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocos2d::Binary*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_Binary_Binary_writeString16'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "cc.Binary:writeString16");
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_Binary_Binary_writeString16'", nullptr);
+            return 0;
+        }
+        cobj->writeString16(arg0);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Binary:writeString16",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_Binary_Binary_writeString16'.",&tolua_err);
 #endif
 
     return 0;
@@ -581,6 +681,56 @@ int lua_Binary_Binary_writeFloat(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_Binary_Binary_writeFloat'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_Binary_Binary_writeString32(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocos2d::Binary* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"cc.Binary",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocos2d::Binary*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_Binary_Binary_writeString32'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 1) 
+    {
+        std::string arg0;
+
+        ok &= luaval_to_std_string(tolua_S, 2,&arg0, "cc.Binary:writeString32");
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_Binary_Binary_writeString32'", nullptr);
+            return 0;
+        }
+        cobj->writeString32(arg0);
+        lua_settop(tolua_S, 1);
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Binary:writeString32",argc, 1);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_Binary_Binary_writeString32'.",&tolua_err);
 #endif
 
     return 0;
@@ -970,6 +1120,53 @@ int lua_Binary_Binary_readDouble(lua_State* tolua_S)
 
     return 0;
 }
+int lua_Binary_Binary_readString32(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocos2d::Binary* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"cc.Binary",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocos2d::Binary*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_Binary_Binary_readString32'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_Binary_Binary_readString32'", nullptr);
+            return 0;
+        }
+        std::string ret = cobj->readString32();
+        lua_pushlstring(tolua_S,ret.c_str(),ret.length());
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Binary:readString32",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_Binary_Binary_readString32'.",&tolua_err);
+#endif
+
+    return 0;
+}
 int lua_Binary_Binary_readString(lua_State* tolua_S)
 {
     int argc = 0;
@@ -1013,6 +1210,53 @@ int lua_Binary_Binary_readString(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_Binary_Binary_readString'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_Binary_Binary_readString16(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocos2d::Binary* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"cc.Binary",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocos2d::Binary*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_Binary_Binary_readString16'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_Binary_Binary_readString16'", nullptr);
+            return 0;
+        }
+        std::string ret = cobj->readString16();
+        lua_pushlstring(tolua_S,ret.c_str(),ret.length());
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Binary:readString16",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_Binary_Binary_readString16'.",&tolua_err);
 #endif
 
     return 0;
@@ -1110,6 +1354,53 @@ int lua_Binary_Binary_readLong(lua_State* tolua_S)
 #if COCOS2D_DEBUG >= 1
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_Binary_Binary_readLong'.",&tolua_err);
+#endif
+
+    return 0;
+}
+int lua_Binary_Binary_readString8(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocos2d::Binary* cobj = nullptr;
+    bool ok  = true;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_Error tolua_err;
+#endif
+
+
+#if COCOS2D_DEBUG >= 1
+    if (!tolua_isusertype(tolua_S,1,"cc.Binary",0,&tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocos2d::Binary*)tolua_tousertype(tolua_S,1,0);
+
+#if COCOS2D_DEBUG >= 1
+    if (!cobj) 
+    {
+        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_Binary_Binary_readString8'", nullptr);
+        return 0;
+    }
+#endif
+
+    argc = lua_gettop(tolua_S)-1;
+    if (argc == 0) 
+    {
+        if(!ok)
+        {
+            tolua_error(tolua_S,"invalid arguments in function 'lua_Binary_Binary_readString8'", nullptr);
+            return 0;
+        }
+        std::string ret = cobj->readString8();
+        lua_pushlstring(tolua_S,ret.c_str(),ret.length());
+        return 1;
+    }
+    luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.Binary:readString8",argc, 0);
+    return 0;
+
+#if COCOS2D_DEBUG >= 1
+    tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'lua_Binary_Binary_readString8'.",&tolua_err);
 #endif
 
     return 0;
@@ -1291,11 +1582,14 @@ int lua_register_Binary_Binary(lua_State* tolua_S)
         tolua_function(tolua_S,"readByte",lua_Binary_Binary_readByte);
         tolua_function(tolua_S,"finish",lua_Binary_Binary_finish);
         tolua_function(tolua_S,"initWrite",lua_Binary_Binary_initWrite);
+        tolua_function(tolua_S,"writeString8",lua_Binary_Binary_writeString8);
         tolua_function(tolua_S,"writeString",lua_Binary_Binary_writeString);
+        tolua_function(tolua_S,"writeString16",lua_Binary_Binary_writeString16);
         tolua_function(tolua_S,"readFloat",lua_Binary_Binary_readFloat);
         tolua_function(tolua_S,"writeDouble",lua_Binary_Binary_writeDouble);
         tolua_function(tolua_S,"writeBool",lua_Binary_Binary_writeBool);
         tolua_function(tolua_S,"writeFloat",lua_Binary_Binary_writeFloat);
+        tolua_function(tolua_S,"writeString32",lua_Binary_Binary_writeString32);
         tolua_function(tolua_S,"getStream",lua_Binary_Binary_getStream);
         tolua_function(tolua_S,"isBigEndian",lua_Binary_Binary_isBigEndian);
         tolua_function(tolua_S,"readShort",lua_Binary_Binary_readShort);
@@ -1304,9 +1598,12 @@ int lua_register_Binary_Binary(lua_State* tolua_S)
         tolua_function(tolua_S,"initRead",lua_Binary_Binary_initRead);
         tolua_function(tolua_S,"setEndian",lua_Binary_Binary_setEndian);
         tolua_function(tolua_S,"readDouble",lua_Binary_Binary_readDouble);
+        tolua_function(tolua_S,"readString32",lua_Binary_Binary_readString32);
         tolua_function(tolua_S,"readString",lua_Binary_Binary_readString);
+        tolua_function(tolua_S,"readString16",lua_Binary_Binary_readString16);
         tolua_function(tolua_S,"writeLong",lua_Binary_Binary_writeLong);
         tolua_function(tolua_S,"readLong",lua_Binary_Binary_readLong);
+        tolua_function(tolua_S,"readString8",lua_Binary_Binary_readString8);
         tolua_function(tolua_S,"writeInt",lua_Binary_Binary_writeInt);
         tolua_function(tolua_S,"createRead", lua_Binary_Binary_createRead);
         tolua_function(tolua_S,"createWrite", lua_Binary_Binary_createWrite);
