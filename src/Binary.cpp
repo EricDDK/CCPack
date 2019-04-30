@@ -31,12 +31,12 @@ Binary* Binary::createWrite()
 
 Binary::Binary()
 {
-	
+
 }
 
 Binary::~Binary()
 {
-	
+
 }
 
 bool Binary::initRead(std::string stream)
@@ -207,8 +207,7 @@ int Binary::read7BitEncodedInt()
 		num3 = readByte();
 		num |= (num3 & 0x7f) << num2;
 		num2 += 7;
-	} 
-	while ((num3 & 0x80) != 0);
+	} while ((num3 & 0x80) != 0);
 	return num;
 }
 
