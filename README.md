@@ -1,5 +1,4 @@
 # CCPack
-C++ serialization library, export lua using and parse binary stream
+is a C++ serialization library within simple and clear naming and code style, C++ 11 compilation.
 
-
-It's being built. Don't pull.
+can be exported for lua using and parse binary stream.
