@@ -1,4 +1,4 @@
-#include "scripting/lua-bindings/auto/lua_pack_binary_auto.hpp"
+#include "lua_pack_binary_auto.hpp"
 #include "Binary.h"
 #include "scripting/lua-bindings/manual/tolua_fix.h"
 #include "scripting/lua-bindings/manual/LuaBasicConversions.h"
