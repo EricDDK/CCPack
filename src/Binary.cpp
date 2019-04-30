@@ -70,7 +70,7 @@ const bool Binary::isBigEndian() const
 unsigned char Binary::readByte()
 {
 	unsigned char b;
-	size_t len = sizeof(b);
+	int len = sizeof(b);
 	if (len + _pos > _size)
 		return NULL;
 	memcpy(&b, _stream.substr(_pos, _pos + len).c_str(), len);
@@ -81,7 +81,7 @@ unsigned char Binary::readByte()
 bool Binary::readBool()
 {
 	bool b;
-	size_t len = sizeof(b);
+	int len = sizeof(b);
 	if (len + _pos > _size)
 		return NULL;
 	memcpy(&b, _stream.substr(_pos, _pos + len).c_str(), len);
@@ -92,7 +92,7 @@ bool Binary::readBool()
 char Binary::readChar()
 {
 	char c;
-	size_t len = sizeof(c);
+	int len = sizeof(c);
 	if (len + _pos > _size)
 		return NULL;
 	memcpy(&c, _stream.substr(_pos, _pos + len).c_str(), len);
@@ -103,7 +103,7 @@ char Binary::readChar()
 short Binary::readShort()
 {
 	short s;
-	size_t len = sizeof(s);
+	int len = sizeof(s);
 	if (len + _pos > _size)
 		return NULL;
 	memcpy(&s, _stream.substr(_pos, _pos + len).c_str(), len);
@@ -114,7 +114,7 @@ short Binary::readShort()
 int Binary::readInt()
 {
 	int i;
-	size_t len = sizeof(i);
+	int len = sizeof(i);
 	if (len + _pos > _size)
 		return NULL;
 	memcpy(&i, _stream.substr(_pos, _pos + len).c_str(), len);
@@ -125,7 +125,7 @@ int Binary::readInt()
 long long Binary::readLong()
 {
 	long long l;
-	size_t len = sizeof(l);
+	int len = sizeof(l);
 	if (len + _pos > _size)
 		return NULL;
 	memcpy(&l, _stream.substr(_pos, _pos + len).c_str(), len);
@@ -136,7 +136,7 @@ long long Binary::readLong()
 float Binary::readFloat()
 {
 	float f;
-	size_t len = sizeof(f);
+	int len = sizeof(f);
 	if (len + _pos > _size)
 		return NULL;
 	memcpy(&f, _stream.substr(_pos, _pos + len).c_str(), len);
@@ -147,7 +147,7 @@ float Binary::readFloat()
 double Binary::readDouble()
 {
 	double d;
-	size_t len = sizeof(d);
+	int len = sizeof(d);
 	if (len + _pos > _size)
 		return NULL;
 	memcpy(&d, _stream.substr(_pos, _pos + len).c_str(), len);
@@ -157,7 +157,7 @@ double Binary::readDouble()
 
 std::string Binary::readString()
 {
-	const size_t len = this->readChar();
+	const int len = read7BitEncodedInt();
 	if (len + _pos > _size)
 		return NULL;
 	std::string s = _stream.substr(_pos, len).c_str();
@@ -167,7 +167,7 @@ std::string Binary::readString()
 
 std::string Binary::readString8()
 {
-	const size_t len = this->readChar();
+	const int len = this->readChar();
 	if (len + _pos > _size)
 		return NULL;
 	std::string s = _stream.substr(_pos, len).c_str();
@@ -177,7 +177,7 @@ std::string Binary::readString8()
 
 std::string Binary::readString16()
 {
-	const size_t len = this->readShort();
+	const int len = this->readShort();
 	if (len + _pos > _size)
 		return NULL;
 	std::string s = _stream.substr(_pos, len).c_str();
@@ -187,7 +187,7 @@ std::string Binary::readString16()
 
 std::string Binary::readString32()
 {
-	const size_t len = this->readInt();
+	const int len = this->readInt();
 	if (len + _pos > _size)
 		return NULL;
 	std::string s = _stream.substr(_pos, len).c_str();
@@ -195,9 +195,26 @@ std::string Binary::readString32()
 	return s;
 }
 
+int Binary::read7BitEncodedInt()
+{
+	byte num3;
+	int num = 0;
+	int num2 = 0;
+	do
+	{
+		if (num2 == 0x23)
+			return 0;
+		num3 = readByte();
+		num |= (num3 & 0x7f) << num2;
+		num2 += 7;
+	} 
+	while ((num3 & 0x80) != 0);
+	return num;
+}
+
 void Binary::writeByte(unsigned char b)
 {
-	const size_t len = sizeof(b);
+	const int len = sizeof(b);
 	char s[len];
 	memcpy(s, &b, len);
 	_stream += std::string(s, len);
@@ -206,7 +223,7 @@ void Binary::writeByte(unsigned char b)
 
 void Binary::writeBool(bool b)
 {
-	const size_t len = sizeof(b);
+	const int len = sizeof(b);
 	char s[len];
 	memcpy(s, &b, len);
 	_stream += std::string(s, len);
@@ -215,7 +232,7 @@ void Binary::writeBool(bool b)
 
 void Binary::writeChar(char c)
 {
-	const size_t len = sizeof(c);
+	const int len = sizeof(c);
 	char s[len];
 	memcpy(s, &c, len);
 	_stream += std::string(s, len);
@@ -224,7 +241,7 @@ void Binary::writeChar(char c)
 
 void Binary::writeShort(short sh)
 {
-	const size_t len = sizeof(sh);
+	const int len = sizeof(sh);
 	char s[len];
 	memcpy(s, &sh, len);
 	_stream += std::string(s, len);
@@ -233,7 +250,7 @@ void Binary::writeShort(short sh)
 
 void Binary::writeInt(int i)
 {
-	const size_t len = sizeof(i);
+	const int len = sizeof(i);
 	char s[len];
 	memcpy(s, &i, len);
 	_stream += std::string(s, len);
@@ -242,7 +259,7 @@ void Binary::writeInt(int i)
 
 void Binary::writeLong(long long l)
 {
-	const size_t len = sizeof(l);
+	const int len = sizeof(l);
 	char s[len];
 	memcpy(s, &l, len);
 	_stream += std::string(s, len);
@@ -251,7 +268,7 @@ void Binary::writeLong(long long l)
 
 void Binary::writeFloat(float f)
 {
-	const size_t len = sizeof(f);
+	const int len = sizeof(f);
 	char s[len];
 	memcpy(s, &f, len);
 	_stream += std::string(s, len);
@@ -260,7 +277,7 @@ void Binary::writeFloat(float f)
 
 void Binary::writeDouble(double d)
 {
-	const size_t len = sizeof(d);
+	const int len = sizeof(d);
 	char s[len];
 	memcpy(s, &d, len);
 	_stream += std::string(s, len);
@@ -269,7 +286,7 @@ void Binary::writeDouble(double d)
 
 void Binary::writeString(std::string s)
 {
-	writeChar(s.size());
+	Write7BitEncodedInt(s.size());
 	_stream += s;
 	_head += (s.size() + 1);
 }
@@ -293,6 +310,17 @@ void Binary::writeString32(std::string s)
 	writeInt(s.size());
 	_stream += s;
 	_head += (s.size() + sizeof(int));
+}
+
+void Binary::Write7BitEncodedInt(int len)
+{
+	unsigned int num = (unsigned int)len;
+	while (num >= 0x80)
+	{
+		writeByte((byte)(num | 0x80));
+		num = num >> 7;
+	}
+	writeByte((byte)num);
 }
 
 void Binary::finish()
