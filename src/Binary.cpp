@@ -2,7 +2,7 @@
 
 //custome define
 //Header offset, currently protocol number 4 bytes
-//°üÍ·Æ«ÒÆÁ¿£¬µ±Ç°ÎªÐ­ÒéºÅ4×Ö½Ú
+//ï¿½ï¿½Í·Æ«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ÎªÐ­ï¿½ï¿½ï¿½4ï¿½Ö½ï¿½
 #define HEAD_OFFSET 4; 
 
 USING_NS_CC;
@@ -285,7 +285,7 @@ void Binary::writeDouble(double d)
 
 void Binary::writeString(std::string s)
 {
-	Write7BitEncodedInt(s.size());
+	write7BitEncodedInt(s.size());
 	_stream += s;
 	_head += (s.size() + 1);
 }
@@ -311,7 +311,7 @@ void Binary::writeString32(std::string s)
 	_head += (s.size() + sizeof(int));
 }
 
-void Binary::Write7BitEncodedInt(int len)
+void Binary::write7BitEncodedInt(int len)
 {
 	unsigned int num = (unsigned int)len;
 	while (num >= 0x80)

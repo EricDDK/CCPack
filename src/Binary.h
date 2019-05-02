@@ -52,7 +52,7 @@ public:
 
 private:
 	int read7BitEncodedInt();  //for C# ReadString
-	void Write7BitEncodedInt(int len);  //for C# WriteString
+	void write7BitEncodedInt(int len);  //for C# WriteString
 
 private:
 	std::string _stream;
