@@ -197,18 +197,18 @@ std::string Binary::readString32()
 
 int Binary::read7BitEncodedInt()
 {
-	byte num3;
-	int num = 0;
-	int num2 = 0;
+	byte oneByte;
+	int len = 0;
+	int head = 0;
 	do
 	{
-		if (num2 == 0x23)
+		if (head == 0x23)
 			return 0;
-		num3 = readByte();
-		num |= (num3 & 0x7f) << num2;
-		num2 += 7;
-	} while ((num3 & 0x80) != 0);
-	return num;
+		oneByte = readByte();
+		len |= (oneByte & 0x7f) << head;
+		head += 7;
+	} while ((oneByte & 0x80) != 0);
+	return len;
 }
 
 void Binary::writeByte(unsigned char b)
