@@ -6,6 +6,7 @@
 #define CCPACK_NAMESPACE_USING using namespace CCPack;
 
 #include <string>
+#include "IPack.h"
 
 CCPACK_NAMESPACE_START
 
@@ -73,13 +74,6 @@ private:
 	int _size;
 	bool _isBigEndian = true;
 };
-
-//// abstract base class
-//template class<A>
-//class APack {
-//    virtual A read()=0;
-//    virtual void write(A) = 0;
-//};
 
 CCPACK_NAMESPACE_END
 
