@@ -55,6 +55,12 @@ public:
 	void writeString32(std::string s);
 
 	void finish();
+    
+public:
+    template<class T>
+    T readValue();
+    template<class T>
+    void writeValue(const T &value);
 
 private:
 	int read7BitEncodedInt();  //for C# ReadString
@@ -67,6 +73,13 @@ private:
 	int _size;
 	bool _isBigEndian = true;
 };
+
+//// abstract base class
+//template class<A>
+//class APack {
+//    virtual A read()=0;
+//    virtual void write(A) = 0;
+//};
 
 CCPACK_NAMESPACE_END
 

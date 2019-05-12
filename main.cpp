@@ -38,7 +38,7 @@ void test1()
     int arrayLength = readBinary->readInt();
     EXPECT(arrayLength, 10);
     for (int i = 0; i < arrayLength; ++i) {
-        EXPECT(readBinary->readShort(), i + 1);
+        EXPECT(readBinary->readShort(), i);
         EXPECT(readBinary->readString16(), "index = " + std::to_string(i));
     }
 }
