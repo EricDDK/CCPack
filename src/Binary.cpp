@@ -188,7 +188,7 @@ std::string Binary::readString32()
 	return s;
 }
 
-template<class T>
+template<typename T>
 T Binary::readValue()
 {
     T t;
@@ -316,7 +316,7 @@ void Binary::writeString32(std::string s)
 	_head += (s.size() + sizeof(int));
 }
 
-template<class T>
+template<typename T>
 void Binary::writeValue(const T &value)
 {
     const int len = sizeof(value);

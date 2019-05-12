@@ -58,11 +58,11 @@ public:
 	void finish();
     
 public:
-    template<class T>
+    template<typename T>
     T readValue();
-    template<class T>
+    template<typename T>
     void writeValue(const T &value);
-
+    
 private:
 	int read7BitEncodedInt();  //for C# ReadString
 	void write7BitEncodedInt(int len);  //for C# WriteString
