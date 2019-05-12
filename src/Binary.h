@@ -1,11 +1,17 @@
-#ifndef __CCBINARY_H__
-#define __CCBINARY_H__
+#ifndef _CCPACK_BINARY_H__
+#define _CCPACK_BINARY_H__
 
-#include "cocos2d.h"
+#define CCPACK_NAMESPACE_START namespace CCPack {
+#define CCPACK_NAMESPACE_END }
+#define CCPACK_NAMESPACE_USING using namespace CCPack;
 
-NS_CC_BEGIN
+#include <string>
 
-class Binary : public cocos2d::Ref
+CCPACK_NAMESPACE_START
+
+typedef unsigned char byte;
+
+class Binary
 {
 public:
 	static Binary* createRead(std::string stream);
@@ -62,6 +68,6 @@ private:
 	bool _isBigEndian = true;
 };
 
-NS_CC_END
+CCPACK_NAMESPACE_END
 
 #endif

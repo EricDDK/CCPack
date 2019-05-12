@@ -2,30 +2,23 @@
 
 //custome define
 //Header offset, currently protocol number 4 bytes
-//��ͷƫ��������ǰΪЭ���4�ֽ�
 #define HEAD_OFFSET 4; 
 
-USING_NS_CC;
+CCPACK_NAMESPACE_START
 
 Binary* Binary::createRead(std::string stream)
 {
-	Binary* binary = new (std::nothrow) Binary;
+	Binary* binary = new Binary;
 	if (binary && binary->initRead(stream))
-	{
-		binary->autorelease();
 		return binary;
-	}
 	return nullptr;
 }
 
 Binary* Binary::createWrite()
 {
-	Binary* binary = new (std::nothrow) Binary;
+	Binary* binary = new Binary;
 	if (binary && binary->initWrite())
-	{
-		binary->autorelease();
 		return binary;
-	}
 	return nullptr;
 }
 
@@ -331,17 +324,4 @@ void Binary::finish()
 	_stream[1] = dataLen[1];
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+CCPACK_NAMESPACE_END
