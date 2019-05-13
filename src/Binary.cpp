@@ -188,18 +188,6 @@ std::string Binary::readString32()
 	return s;
 }
 
-template<class T>
-T Binary::readValue()
-{
-    T t;
-    int len = sizeof(T);
-    if (len + _pos > _size)
-        return NULL;
-    memcpy(&t, _stream.substr(_pos, _pos + len).c_str(), len);
-    _pos += len;
-    return t;
-}
-
 int Binary::read7BitEncodedInt()
 {
 	byte oneByte;
@@ -314,16 +302,6 @@ void Binary::writeString32(std::string s)
 	writeInt(s.size());
 	_stream += s;
 	_head += (s.size() + sizeof(int));
-}
-
-template<class T>
-void Binary::writeValue(const T &value)
-{
-    const int len = sizeof(value);
-    char s[len];
-    memcpy(s, &value, len);
-    _stream += std::string(s, len);
-    _head += len;
 }
 
 void Binary::write7BitEncodedInt(int len)

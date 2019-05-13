@@ -6,6 +6,7 @@ add_library(
     pack 
     src/Binary.cpp
     src/Binary.h
+    src/IPack.h
 )
 
 add_executable(

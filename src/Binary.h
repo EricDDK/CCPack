@@ -6,6 +6,7 @@
 #define CCPACK_NAMESPACE_USING using namespace CCPack;
 
 #include <string>
+#include "IPack.h"
 
 CCPACK_NAMESPACE_START
 
@@ -57,11 +58,28 @@ public:
 	void finish();
     
 public:
-    template<class T>
-    T readValue();
-    template<class T>
-    void writeValue(const T &value);
+    template<typename T>
+	T readValue()
+	{
+		T t;
+		int len = sizeof(T);
+		if (len + _pos > _size)
+			return NULL;
+		memcpy(&t, _stream.substr(_pos, _pos + len).c_str(), len);
+		_pos += len;
+		return t;
+	}
 
+    template<typename T>
+	void writeValue(const T &value)
+	{
+		const int len = sizeof(value);
+		char s[len];
+		memcpy(s, &value, len);
+		_stream += std::string(s, len);
+		_head += len;
+	}
+    
 private:
 	int read7BitEncodedInt();  //for C# ReadString
 	void write7BitEncodedInt(int len);  //for C# WriteString
@@ -73,13 +91,6 @@ private:
 	int _size;
 	bool _isBigEndian = true;
 };
-
-//// abstract base class
-//template class<A>
-//class APack {
-//    virtual A read()=0;
-//    virtual void write(A) = 0;
-//};
 
 CCPACK_NAMESPACE_END
 
