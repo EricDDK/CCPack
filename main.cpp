@@ -25,10 +25,10 @@ void test1()
     }
 	writeBinary->writeValue<unsigned short>(50);
     writeBinary->finish();
-    std::string binary = writeBinary->getStream();
+    std::string writeStream = writeBinary->getStream();
     delete writeBinary;
     
-    auto readBinary = CCPack::Binary::createRead(binary);
+    auto readBinary = CCPack::Binary::createRead(writeStream);
     int head = readBinary->readInt();
     EXPECT(readBinary->readChar(), 'c');
     EXPECT(readBinary->readInt(), 12345);

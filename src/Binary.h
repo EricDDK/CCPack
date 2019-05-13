@@ -86,7 +86,7 @@ private:
 
 private:
 	std::string _stream;
-	short _head;
+	int _head;
 	int _pos;
 	int _size;
 	bool _isBigEndian = true;
