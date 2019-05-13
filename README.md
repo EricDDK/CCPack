@@ -1,5 +1,5 @@
 # CCPack
-is a C++ light weight serialization library within simple and clear naming and code style.
+is a C++ light weight serialization library within simple,clear naming and code style.
 
 be exported for cocos2d-x lua using and parse binary stream.
 
