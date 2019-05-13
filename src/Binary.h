@@ -59,9 +59,26 @@ public:
     
 public:
     template<typename T>
-    T readValue();
+	T readValue()
+	{
+		T t;
+		int len = sizeof(T);
+		if (len + _pos > _size)
+			return NULL;
+		memcpy(&t, _stream.substr(_pos, _pos + len).c_str(), len);
+		_pos += len;
+		return t;
+	}
+
     template<typename T>
-    void writeValue(const T &value);
+	void writeValue(const T &value)
+	{
+		const int len = sizeof(value);
+		char s[len];
+		memcpy(s, &value, len);
+		_stream += std::string(s, len);
+		_head += len;
+	}
     
 private:
 	int read7BitEncodedInt();  //for C# ReadString

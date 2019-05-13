@@ -23,6 +23,7 @@ void test1()
         writeBinary->writeShort((short)i);
         writeBinary->writeString16("index = " + std::to_string(i));
     }
+	writeBinary->writeValue<unsigned short>(50);
     writeBinary->finish();
     std::string binary = writeBinary->getStream();
     delete writeBinary;
@@ -41,6 +42,7 @@ void test1()
         EXPECT(readBinary->readShort(), i);
         EXPECT(readBinary->readString16(), "index = " + std::to_string(i));
     }
+	EXPECT(readBinary->readValue<unsigned short>(), 50);
 }
 
 int main()
