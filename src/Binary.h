@@ -29,7 +29,7 @@ public:
 
 	const std::string getStream() const { return _stream; }
 
-	unsigned char readByte();
+	byte readByte();
 	bool readBool();
 	char readChar();
 	short readShort();
@@ -42,7 +42,7 @@ public:
 	std::string readString16();
 	std::string readString32();
 	
-	void writeByte(unsigned char b);
+	void writeByte(byte b);
 	void writeBool(bool b);
 	void writeChar(char c);
 	void writeShort(short s);

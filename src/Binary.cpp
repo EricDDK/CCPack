@@ -60,92 +60,44 @@ const bool Binary::isBigEndian() const
 	return _isBigEndian;
 }
 
-unsigned char Binary::readByte()
+byte Binary::readByte()
 {
-	unsigned char b;
-	int len = sizeof(b);
-	if (len + _pos > _size)
-		return NULL;
-	memcpy(&b, _stream.substr(_pos, _pos + len).c_str(), len);
-	_pos += len;
-	return b;
+	return readValue<byte>();
 }
 
 bool Binary::readBool()
 {
-	bool b;
-	int len = sizeof(b);
-	if (len + _pos > _size)
-		return NULL;
-	memcpy(&b, _stream.substr(_pos, _pos + len).c_str(), len);
-	_pos += len;
-	return b;
+	return readValue<bool>();
 }
 
 char Binary::readChar()
 {
-	char c;
-	int len = sizeof(c);
-	if (len + _pos > _size)
-		return NULL;
-	memcpy(&c, _stream.substr(_pos, _pos + len).c_str(), len);
-	_pos += len;
-	return c;
+	return readValue<char>();
 }
 
 short Binary::readShort()
 {
-	short s;
-	int len = sizeof(s);
-	if (len + _pos > _size)
-		return NULL;
-	memcpy(&s, _stream.substr(_pos, _pos + len).c_str(), len);
-	_pos += len;
-	return s;
+	return readValue<short>();
 }
 
 int Binary::readInt()
 {
-	int i;
-	int len = sizeof(i);
-	if (len + _pos > _size)
-		return NULL;
-	memcpy(&i, _stream.substr(_pos, _pos + len).c_str(), len);
-	_pos += len;
-	return i;
+	return readValue<int>();
 }
 
 long long Binary::readLong()
 {
-	long long l;
-	int len = sizeof(l);
-	if (len + _pos > _size)
-		return NULL;
-	memcpy(&l, _stream.substr(_pos, _pos + len).c_str(), len);
-	_pos += len;
-	return l;
+	return readValue<long long>();
 }
 
 float Binary::readFloat()
 {
-	float f;
-	int len = sizeof(f);
-	if (len + _pos > _size)
-		return NULL;
-	memcpy(&f, _stream.substr(_pos, _pos + len).c_str(), len);
-	_pos += len;
-	return f;
+	return readValue<float>();
 }
 
 double Binary::readDouble()
 {
-	double d;
-	int len = sizeof(d);
-	if (len + _pos > _size)
-		return NULL;
-	memcpy(&d, _stream.substr(_pos, _pos + len).c_str(), len);
-	_pos += len;
-	return d;
+	return readValue<double>();
 }
 
 std::string Binary::readString()
@@ -204,76 +156,44 @@ int Binary::read7BitEncodedInt()
 	return len;
 }
 
-void Binary::writeByte(unsigned char b)
+void Binary::writeByte(byte b)
 {
-	const int len = sizeof(b);
-	char s[len];
-	memcpy(s, &b, len);
-	_stream += std::string(s, len);
-	_head += len;
+	writeValue<byte>(b);
 }
 
 void Binary::writeBool(bool b)
 {
-	const int len = sizeof(b);
-	char s[len];
-	memcpy(s, &b, len);
-	_stream += std::string(s, len);
-	_head += len;
+	writeValue<bool>(b);
 }
 
 void Binary::writeChar(char c)
 {
-	const int len = sizeof(c);
-	char s[len];
-	memcpy(s, &c, len);
-	_stream += std::string(s, len);
-	_head += len;
+	writeValue<char>(c);
 }
 
 void Binary::writeShort(short sh)
 {
-	const int len = sizeof(sh);
-	char s[len];
-	memcpy(s, &sh, len);
-	_stream += std::string(s, len);
-	_head += len;
+	writeValue<short>(sh);
 }
 
 void Binary::writeInt(int i)
 {
-	const int len = sizeof(i);
-	char s[len];
-	memcpy(s, &i, len);
-	_stream += std::string(s, len);
-	_head += len;
+	writeValue<int>(i);
 }
 
 void Binary::writeLong(long long l)
 {
-	const int len = sizeof(l);
-	char s[len];
-	memcpy(s, &l, len);
-	_stream += std::string(s, len);
-	_head += len;
+	writeValue<long long>(l);
 }
 
 void Binary::writeFloat(float f)
 {
-	const int len = sizeof(f);
-	char s[len];
-	memcpy(s, &f, len);
-	_stream += std::string(s, len);
-	_head += len;
+	writeValue<float>(f);
 }
 
 void Binary::writeDouble(double d)
 {
-	const int len = sizeof(d);
-	char s[len];
-	memcpy(s, &d, len);
-	_stream += std::string(s, len);
-	_head += len;
+	writeValue<double>(d);
 }
 
 void Binary::writeString(std::string s)
