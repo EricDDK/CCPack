@@ -11,7 +11,7 @@ add_library(
 
 add_executable(
     main 
-    main.cpp
+    test.cpp
 )
 
 target_link_libraries(main pack)
