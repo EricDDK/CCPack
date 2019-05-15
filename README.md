@@ -13,12 +13,14 @@ is a C++ light weight serialization library within simple,clear naming and code 
     writeBinary->writeString8("test string 8");
     writeBinary->writeString("test auto length string ");
     int writeSize = 10;
+    // array
     writeBinary->writeInt(writeSize);
-    for (int i = 0; i < writeSize; ++i) {
+    for (int i = 0; i < writeSize; ++i) 
+    {
         writeBinary->writeShort((short)i);
         writeBinary->writeString16("index = " + std::to_string(i));
     }
-	  writeBinary->writeValue<unsigned short>(50);
+    writeBinary->writeValue<unsigned short>(50);
     writeBinary->finish();
     std::string writeStream = writeBinary->getStream();
     delete writeBinary;
@@ -33,7 +35,8 @@ is a C++ light weight serialization library within simple,clear naming and code 
     std::string s = readBinary->readString();
     // array
     int readSize = readBinary->readInt();
-    for (int i = 0; i < readSize; ++i) {
+    for (int i = 0; i < readSize; ++i) 
+    {
       short s = readBinary->readShort();
       std::string s16 = readBinary->readString16();
     }
