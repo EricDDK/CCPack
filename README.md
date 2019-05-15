@@ -44,7 +44,7 @@ is a C++ light weight serialization library within simple,clear naming and code 
     unsigned short us = readBinary->readValue<unsigned short>();
     delete readBinary;
 ```
-## on stack
+## 2.on stack
 ```
     CCPack::Binary writeBinary;
     writeBinary.initWrite();
@@ -70,7 +70,7 @@ is a C++ light weight serialization library within simple,clear naming and code 
   be exported for cocos2d-x lua using and parse binary stream.
   the folder is cocos_lua
   the test case is test. A example of client.
-  ## Write
+  ## 1.Write
   ```
     local binary = cc.Binary:createWrite()
     binary:writeInt(1517440670)
@@ -82,7 +82,7 @@ is a C++ light weight serialization library within simple,clear naming and code 
     local buffer = binary:getStream()
     ...
   ```
-  ## Read
+  ## 2.Read
   ```
     local binary = cc.Binary:createRead(buffer)
     local bufferLength = binary:readInt()
