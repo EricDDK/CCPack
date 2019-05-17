@@ -59,7 +59,7 @@ void test1()
 	//}
 	//// if not exist in interface, can use template.
 	//unsigned short us = readBinary->readValue<unsigned short>();
-	//delete readBinary
+	//delete readBinary;
 }
 
 void test2()

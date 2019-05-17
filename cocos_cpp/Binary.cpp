@@ -2,7 +2,6 @@
 
 //custome define
 //Header offset, currently protocol number 4 bytes
-//��ͷƫ��������ǰΪЭ���4�ֽ�
 #define HEAD_OFFSET 4; 
 
 USING_NS_CC;
@@ -72,7 +71,7 @@ unsigned char Binary::readByte()
 	unsigned char b;
 	int len = sizeof(b);
 	if (len + _pos > _size)
-		return NULL;
+		return 0;
 	memcpy(&b, _stream.substr(_pos, _pos + len).c_str(), len);
 	_pos += len;
 	return b;

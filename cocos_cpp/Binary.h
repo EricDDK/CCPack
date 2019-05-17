@@ -5,6 +5,8 @@
 
 NS_CC_BEGIN
 
+typedef unsigned char byte;
+
 class Binary : public cocos2d::Ref
 {
 public:
