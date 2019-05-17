@@ -1,6 +1,24 @@
 # CCPack
 is a C++ light weight serialization library within simple,clear naming and code style.
 
+<p align="left">
+    <a href="">
+        <img src="https://img.shields.io/badge/OS-android%20iOS%20windows-yellow.svg">
+    </a>
+    <a href="https://isocpp.org/">
+        <img src="https://img.shields.io/badge/language-C%2B%2B11-blue.svg">
+    </a>
+    <a href="https://travis-ci.org/felixguendling/cista">
+        <img src="https://travis-ci.org/felixguendling/cista.svg?branch=master">
+    </a>
+    <a href="https://coveralls.io/github/felixguendling/cista?branch=master">
+        <img src="https://coveralls.io/repos/github/felixguendling/cista/badge.svg?branch=master">
+    </a>
+    <a href="https://opensource.org/licenses/MIT" >
+        <img src="https://img.shields.io/apm/l/vim-mode.svg">
+    </a>
+</p>
+
 # Compile using cocos2d-x
 ## windows and iOS
 Copy Binary.cpp, Binary.h, lua_pack_binary_auto.cpp, lua_pack_binary_auto.hpp 
