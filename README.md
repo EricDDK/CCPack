@@ -1,6 +1,33 @@
 # CCPack
 is a C++ light weight serialization library within simple,clear naming and code style.
 
+# Compile using cocos2d-x
+## windows and iOS
+Copy Binary.cpp, Binary.h, lua_pack_binary_auto.cpp, lua_pack_binary_auto.hpp 
+compile
+## android
+    Copy Binary.cpp, Binary.h to cocos2d-x/external/pack
+    if lua framework, copy lua_pack_binary_auto.cpp, lua_pack_binary_auto.hpp to anywhere and register 
+    ```register_all_Binary(L);```
+    Modify cocos2d-x/cocos/Android.mk
+    Add
+    
+    ```
+    // only this one line
+    ...
+    ../external/pack/Binary.cpp \
+    ...
+    
+    LOCAL_EXPORT_C_INCLUDES := ...
+    ...
+    
+    ...
+    LOCAL_C_INCLUDES := ...
+    ...
+    
+    
+    ```
+
 # Using in c++
 
 ## 1.on heap
