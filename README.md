@@ -22,7 +22,7 @@ is a C++ light weight serialization library within simple,clear naming and code 
 # Using in c++
 ## explanation
 Serialization is the process of turning an object in memory into a stream of bytes so you can do stuff like store it on disk or send it over the network.Deserialization is the reverse process: turning a stream of bytes into an object in memory.
-CCPack is used to serialization and deserialization. The corresponding operation(function) is read and write.
+CCPack is used to serialization and deserialization. The corresponding operation(function) is write and read.
 
 ## 1.on heap
 ```
