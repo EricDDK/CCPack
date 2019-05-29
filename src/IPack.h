@@ -4,8 +4,8 @@
 template<class T>
 class IPack {
 public:
-    virtual T read() = 0;
-    virtual void write(const T &data) = 0;
+	virtual T read() = 0;
+	virtual void write(const T &data) = 0;
 };
 
 #endif
