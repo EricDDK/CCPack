@@ -41,7 +41,7 @@ public:
 	std::string readString8();
 	std::string readString16();
 	std::string readString32();
-	
+
 	void writeByte(byte b);
 	void writeBool(bool b);
 	void writeChar(char c);
@@ -56,9 +56,9 @@ public:
 	void writeString32(std::string s);
 
 	void finish();
-    
+
 public:
-    template<typename T>
+	template<typename T>
 	T readValue()
 	{
 		T t;
@@ -70,7 +70,7 @@ public:
 		return t;
 	}
 
-    template<typename T>
+	template<typename T>
 	void writeValue(const T &value)
 	{
 		const int len = sizeof(value);
@@ -79,7 +79,7 @@ public:
 		_stream += std::string(s, len);
 		_head += len;
 	}
-    
+
 private:
 	int read7BitEncodedInt();  //for C# ReadString
 	void write7BitEncodedInt(int len);  //for C# WriteString
